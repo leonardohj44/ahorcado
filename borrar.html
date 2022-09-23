@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>ejemplo simple de estilo</title>
+
+<script type="text/javascript">
+
+function alterStyle(elem) {
+  elem.style.background = 'green';
+}
+
+function resetStyle(elemId) {
+  elem = document.getElementById(elemId);
+  elem.style.background = 'white';
+}
+</script>
+
+<style type="text/css">
+#p1 {
+ border: solid blue 2px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- pasar la referencia al objeto del elemento, como parámetro 'this'. -->
+<p id="p1" onclick="alterStyle(this)";>
+ Haz clic aquí para cambiar el color de fondo. </p>
+
+<!-- pasar el identificador 'pl' de otro elemento a modificar. -->
+<button onclick="resetStyle('p1');">Volver al color de fondo original</button>
+
+</body>
+</html>

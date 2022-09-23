@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahorcado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="funload()" onkeypress="leerTecla(event)">
+    <img src="./images/landingpage/logo.svg" class="logo">
+    <div class="botones-home">
+      <a href="#forca">
+        <input class="btn-iniciar" type="submit" value="Iniciar Juego" id="iniciar-juego" onclick="iniciarJuego()">
+        <input class="btn-agregar" type="submit" value="Agregar Palabra" id="agregar-palabra" onclick="agregarPalabra()">
+      </a>
+    </div>
+    <div class='letraVisible' >
+      <div class='letraI' id='letraI0'></div>
+      <div class='letraI' id='letraI1'></div>
+      <div class='letraI' id='letraI2'></div>
+      <div class='letraI' id='letraI3'></div>
+      <div class='letraI' id='letraI4'></div>
+      <div class='letraI' id='letraI5'></div>
+      <div class='letraI' id='letraI6'></div>
+      <div class='letraI' id='letraI7'></div>
+      <div class='letraI' id='letraI8'></div>
+      <div class='letraI' id='letraI9'></div>
+      <div class='letraX' id='letraX'></div>
+    </div>    
+    <div id="div-aparece-ahorcado" class="canvas">
+      <!-- Canvas -->
+      <canvas id="horca" width="1366" height="768"></canvas>
+      <div class="subrayado">
+      </div>
+    </div>
+    <p id="demo">AQUIIIIIIIIIIIIII</p>
+
+    <img src="./images/landingpage/avisoMaxLetras.svg" class="aviso" id="aviso">
+
+    <!-- <a href="#" class="copiar" onclick="copiaTexto()" data-clipboard-target="#resultado">Copiar</a> -->
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
+

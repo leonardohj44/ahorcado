@@ -1,0 +1,124 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter';
+    position: relative;
+    width: 1440px;
+    height: 1024px;
+    background: linear-gradient(90deg, #2980B9 0%, #2C3E50 100%);
+}
+
+.logo {
+    position: absolute;
+    left: 50px;
+    right: 37.43%;
+    top: 50px;
+    bottom: 0%;
+    width: 50px;
+    height:50px;
+    animation: ilustrationAnimate ease-in 0.5s infinite alternate;
+}
+
+@keyframes ilustrationAnimate {
+    0% {
+        transform: scale(1);
+    } 100% {
+        transform: scale(1.04);
+    }
+}
+
+.aviso {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    width: 115px;
+    height: 18px;
+    left: 376px;
+    top: 667px;
+    animation-name: parpadeo;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes parpadeo {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+}
+
+.text-box.disabled {
+    display: none;
+}
+
+/*   ---------------------------------------------- */
+  .btn-iniciar {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px;
+    position: absolute;
+    width: 317px;
+    height: 114px;
+    left: 0;
+    top: 402px;
+    background: #0A3871;
+    border-radius: 24px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 22px;
+    justify-content: center;
+    color: #FFFFFF;
+}
+
+.btn-agregar {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px;
+    position: absolute;
+    width: 280px;
+    height: 67px;
+    left: 20px;
+    top: 554px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 24px;
+    justify-content: center;
+}
+
+  .canvas{
+    margin-left: 10.5rem;
+    width: 1400px;
+    height:1024px;
+  }
+
+  .botones-home{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    left:42rem;
+    background-color: red;
+   }
+
+   span{
+    width: auto;
+    text-align: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--dkblue);
+    font-family: 'Inter';
+}
