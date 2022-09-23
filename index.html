@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ahorcado</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body onload="funload()" onkeypress="leerTecla(event)">
@@ -14,6 +15,7 @@
       <a href="#horca">
         <input class="btn-iniciar" type="submit" value="Iniciar Juego" id="iniciar-juego" onclick="iniciarJuego()">
         <input class="btn-agregar" type="submit" value="Agregar Palabra" id="agregar-palabra" onclick="agregarPalabra()">
+        <button id='btnAjax'>Cargar palabras aleatorias de la RED</button>
       </a>
     </div>
     <div class='letraVisible' >

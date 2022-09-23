@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Demo AJAX</title>
+  <meta charset=UTF-8>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+   <div id='respuesta'>
+  </div>
+  <button id='btnAjax'>AJAX!</button>
+  <script type="text/javascript">
+    // let id = 1;
+    $('#btnAjax')[0].addEventListener('click', e => {
+      //let inputValue = $('#inputImg').val();
+      $.get(`https://api.wordassociations.net/associations/v1.0/json/search?apikey=3a159612-66b3-4a19-97ad-88c1f0781e75&text=animal&lang=es`, response => {
+        let title = document.createElement('h2');
+        aleatorio=Math.round(Math.random()*50)
+        title.innerText = response.response[0].items[aleatorio].item;
+        $('#respuesta').append(title);
+      });
+    });
+  </script>
+</body>
+</html>

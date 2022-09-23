@@ -2,9 +2,8 @@ function funload() {
   document.getElementById("aviso").style.display = "none";   // oculta aviso al cargar
 }
 
-const fs = require('fs') ;
 // variables globales
-let palabras = ["AMERICA","JAVASCRIPT"];
+let palabras = [];
 let tablero = document.getElementById("horca").getContext("2d");
 let palabraSecreta = '';
 var tecla = '';
@@ -15,13 +14,14 @@ const maxPalabra = 8;
 var posX = [, , , , , , , , ,];
 let ce = 0;   // contador de errores
 
-
-
-
-fs.readFile(__dirname + '/listado.txt', 'utf8', function(err, data) {  
-  if(err) return console.log(err);
-  console.log(data);
-	//palabras=data.toUpperCase();
+$('#btnAjax')[0].addEventListener('click', e => {
+  //let inputValue = $('#inputImg').val();
+  $.get(`https://api.wordassociations.net/associations/v1.0/json/search?apikey=3a159612-66b3-4a19-97ad-88c1f0781e75&text=animal&lang=es`, response => {
+  for(let i=0;i<50;i++) {
+    palabras[i] = response.response[0].items[i].item.toUpperCase();
+    console.log("====>",palabras[i]);
+    }
+  });
 });
 
 //  ------leer el teclado-----
