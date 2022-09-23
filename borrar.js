@@ -1,10 +1,5 @@
-<html>
-<head>
-<title>ejemplo simple de estilo</title>
-
 <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
 
-<script>
 $(function() 
 {
 $("#button").click( function()
@@ -25,24 +20,3 @@ $("#button").click( function()
 	);
    });
 });
-
-</script>
-
-<style type="text/css">
-#p1 {
- border: solid blue 2px;
-}
-</style>
-</head>
-
-<body>
-
-  Ingrese una url válida:<input type="text" id="input-url" size="50" value="https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt"></input>
-
-  <input type="button" id="button" value="Ver .txt"></input>
-  <div class="text">
-    <hr />
-    <h2>Texto:</h2>
-  </div>
-</body>
-</html>

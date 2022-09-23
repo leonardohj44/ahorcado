@@ -1,4 +1,8 @@
-//var fs = require('fs');
+function funload() {
+  document.getElementById("aviso").style.display = "none";   // oculta aviso al cargar
+}
+
+const fs = require('fs') ;
 // variables globales
 let palabras = ["AMERICA","JAVASCRIPT"];
 let tablero = document.getElementById("horca").getContext("2d");
@@ -12,15 +16,13 @@ var posX = [, , , , , , , , ,];
 let ce = 0;   // contador de errores
 
 
-function funload() {
-  document.getElementById("aviso").style.display = "none";   // oculta aviso al cargar
-}
 
-// fs.readFile(__dirname + '/listado.txt', 'utf8', function(err, data) {  
-//   if(err) return console.log(err);
-//   console.log(data);
-// 	palabras=data.toUpperCase();
-// });
+
+fs.readFile(__dirname + '/listado.txt', 'utf8', function(err, data) {  
+  if(err) return console.log(err);
+  console.log(data);
+	//palabras=data.toUpperCase();
+});
 
 //  ------leer el teclado-----
 
