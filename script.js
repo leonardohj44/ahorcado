@@ -72,7 +72,7 @@ function getLetter(valorTecla) {
 
     for (let i = 0; i < palabraSecreta.length; i++)
       txtI[i] += txtIprevio[i];
-    //console.log('====>',idxPos,txtIprevio);
+    console.log('====>',idxPos,txtIprevio);
     var txtOk;
     for (let j = 0; j < idxPos.length; j++) {
       txtOk = document.getElementById("letraI" + `${idxPos[j]}`);
@@ -83,7 +83,6 @@ function getLetter(valorTecla) {
       txtOk.style.marginLeft = (valorTecla === "I") ? `${posX[idxPos[j]] + 13}px` : `${posX[idxPos[j]]}px`;
       document.getElementById('letraI' + `${idxPos[j]}`).innerHTML = valorTecla;
     }
-    //document.getElementById('letraI').innerHTML = txtI.join('');
   }
   else {
     dibujarLineaHorca(++ce);
@@ -96,7 +95,7 @@ function getLetter(valorTecla) {
     txtX += valorTecla + " ";  // valorTecla errado
     document.getElementById('letraX').innerHTML = txtX;
   }
-  if (txtI.join('') === palabraSecreta) mensaje(true);
+  if (txtI.join('') === palabraSecreta) mensaje(true); // ACERTÓ PALABRA SECRETA
 
 } //getLetter()
 
@@ -113,15 +112,28 @@ function iniciarJuego() {
   document.getElementById("btnAjax").style.display = "none";   // oculta  btnAjax
   document.getElementById("iniciar-juego").style.display = "none";       // 'none' = oculta ID
   document.getElementById("msgbox").style.display = "none";     // oculta msgbox
-  document.getElementById("btn-repetir").style.display = "none";     // oculta btn-repetir
   control = true;
+  document.getElementById("repetir-juego").style.display = "none";     // oculta btn-repetir
   escojerPalabraSecreta()
   dibujarCanvas()
   dibujarLineaLetras()
 }
 
+function repetirJuego(){
+  let i = 0;
+  while(i < 15){
+      var rem = document.getElementById(`letraI${i}`);
+      rem.remove();
+      i++;
+  }
+  iniciarJuego()
+  let txtX = "";   
+  ce = 0;   // reinicio contador de errores
+  txtI = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
+}
 // ------------------------------ canvas ------------------------
 function dibujarCanvas() {
+  //tablero.clearRect()
   tablero.lineWidth = 8;
   tablero.lineCap = "round";
   tablero.lineJoin = "round";
@@ -188,5 +200,5 @@ function mensaje(success) {
     console.log(">>>>>>>>>>>>>PERDISTES");
     document.getElementById('msgbox').innerHTML = `Perdistes palabra secreta ${palabraSecreta}`;
   }
-  document.getElementById("btn-repetir").style.display = "block";     // oculta btn-repetir
+  document.getElementById("repetir-juego").style.display = "block";     // oculta btn-repetir
 }
