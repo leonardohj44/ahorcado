@@ -1,11 +1,13 @@
 // variables globales
 let palabras = [];
 let tablero = document.getElementById("horca").getContext("2d");
+document.getElementById("repetir-juego").style.display = "none";     // oculta btn-repetir
+document.getElementById("salir-juego").style.display = "none";     // oculta btn-repetir
 let palabraSecreta = '';
 var tecla = '';
 var letraExiste = false;
 let txtI = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
-let txtX = "";
+let txtX = [];
 const maxPalabra = 8;
 var posX = [, , , , , , , , , , , , , , ,];
 let ce = 0;   // contador de errores
@@ -15,15 +17,30 @@ var control = false;
 $('#btnAjax')[0].addEventListener('click', e => {
   let expresion = /[\u0300-\u036f]/g;
   let tema = $('#inputtxt').val();
+  let existePalabra, i=0;
   console.log("===>>>", tema);
-  $.get(`https://api.wordassociations.net/associations/v1.0/json/search?apikey=3a159612-66b3-4a19-97ad-88c1f0781e75&text=${tema}&lang=es`, response => {
-    for (let i = 0, j = 0; i < 50; i++) {
-      let palabra = response.response[0].items[i].item.toUpperCase();
-      palabras[i] = palabra.normalize("NFD").replace(expresion, "");    //NFD = Forma de Normalización de Descomposición Canónica.
-      console.log("==========>", palabras[i])
-    }
-    alert('PALABRAS CARGADAS DE LA API, PUEDE CONTINUAR');
-  });
+  try{
+    $.get(`https://api.wordassociations.net/associations/v1.0/json/search?apikey=3a159612-66b3-4a19-97ad-88c1f0781e75&text=${tema}&lang=es`, response => {
+      for (let i = 0, j = 0; i < 1000; i++) {
+        existePalabra = response.response[0].items[i];
+        if (existePalabra!==undefined) {
+          let palabra = existePalabra.item.toUpperCase();
+          palabras[i] = palabra.normalize("NFD").replace(expresion, "");    //NFD = Forma de Normalización de Descomposición Canónica.
+          console.log("==========>", i, palabras[i])
+        } // if
+        else {
+          if(i==0) {
+            alert("Palabra no encontrada en la API, ingrese otra")
+            window.location.reload();
+          }
+          break;
+        }
+      }
+      document.getElementById("btnAjax").style.display = "none";   // oculta  btnAjax
+    });
+  } catch (err) {
+    console.err(err)
+  }
 });
 
 //  ------leer el teclado-----
@@ -72,9 +89,10 @@ function getLetter(valorTecla) {
 
     for (let i = 0; i < palabraSecreta.length; i++)
       txtI[i] += txtIprevio[i];
-    console.log('====>',idxPos,txtIprevio);
+    console.log('====>', idxPos, txtIprevio);
     var txtOk;
     for (let j = 0; j < idxPos.length; j++) {
+      console.log("idxPos[j]=", idxPos[j])
       txtOk = document.getElementById("letraI" + `${idxPos[j]}`);
       txtOk.style.position = 'absolute';
       txtOk.style.font = 'italic bold 60px arial';
@@ -112,24 +130,28 @@ function iniciarJuego() {
   document.getElementById("btnAjax").style.display = "none";   // oculta  btnAjax
   document.getElementById("iniciar-juego").style.display = "none";       // 'none' = oculta ID
   document.getElementById("msgbox").style.display = "none";     // oculta msgbox
+  document.getElementById("label").style.display = "none";     // oculta label
+  document.getElementById("labellisto").style.display = "none";     // oculta label listo
+  document.getElementById("repetir-juego").style.display = "block";     // oculta btn-repetir
+  document.getElementById("salir-juego").style.display = "block";     // oculta btn-repetir
   control = true;
-  document.getElementById("repetir-juego").style.display = "none";     // oculta btn-repetir
+  txtX = [];
+  document.getElementById('letraX').innerHTML = txtX;
+  ce = 0;   // reinicio contador de errores
+  txtI = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
+  
   escojerPalabraSecreta()
   dibujarCanvas()
   dibujarLineaLetras()
 }
 
-function repetirJuego(){
+function repetirJuego() {
   let i = 0;
-  while(i < 15){
-      var rem = document.getElementById(`letraI${i}`);
-      rem.remove();
-      i++;
+  while (i < 15) {
+    document.getElementById(`letraI${i}`).innerHTML = "";
+    i++;
   }
-  iniciarJuego()
-  let txtX = "";   
-  ce = 0;   // reinicio contador de errores
-  txtI = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
+  iniciarJuego();
 }
 // ------------------------------ canvas ------------------------
 function dibujarCanvas() {

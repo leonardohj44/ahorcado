@@ -67,7 +67,7 @@ body {
     width: 317px;
     height: 114px;
     left: 0;
-    top: 402px;
+    top: 554px;
     background: #0A3871;
     border-radius: 24px;
     font-family: 'Inter';
@@ -89,7 +89,7 @@ body {
     width: 280px;
     height: 110px;
     left: 20px;
-    top: 554px;
+    top: 402px;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
@@ -107,14 +107,51 @@ body {
     position: absolute;
     width: 280px;
     height: 110px;
-    left: 20px;
-    top: 554px;
+    left: 230px;
+    top: 200px;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
     border-radius: 24px;
     justify-content: center;
+}
+
+.btn-salir{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px;
+    position: absolute;
+    width: 280px;
+    height: 110px;
+    left: 230px;
+    top: 400px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 24px;
+    justify-content: center;
+}
+
+.input-txt {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px;
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    left: 20px;
+    top: 300px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    justify-content: center;    
 }
 
   .canvas{
@@ -157,4 +194,33 @@ body {
     animation-name: parpadeo;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+}
+
+.lbl {
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    width: 300px;
+    height: 50px;
+    left: 700px;
+    top: 230px;
+}
+
+.lbl-listo {
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    font-size:20px ;
+    width: 250px;
+    height: 50px;
+    left: 30px;
+    top: 428px; 
 }
