@@ -79,7 +79,7 @@ body {
     color: #FFFFFF;
 }
 
-.btn-agregar {
+.btn-cargar {
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
@@ -87,7 +87,26 @@ body {
     padding: 24px;
     position: absolute;
     width: 280px;
-    height: 67px;
+    height: 110px;
+    left: 20px;
+    top: 554px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 24px;
+    justify-content: center;
+}
+
+.btn-repetir {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 24px;
+    position: absolute;
+    width: 280px;
+    height: 110px;
     left: 20px;
     top: 554px;
     font-family: 'Inter';
@@ -121,4 +140,21 @@ body {
     margin-right: auto;
     color: var(--dkblue);
     font-family: 'Inter';
+}
+
+.msg-box {
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    width: 115px;
+    height: 18px;
+    left: 950px;
+    top: 380px;
+    animation-name: parpadeo;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }

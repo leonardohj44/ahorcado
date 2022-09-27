@@ -1,35 +1,39 @@
-function funload() {
-  document.getElementById("aviso").style.display = "none";   // oculta aviso al cargar
-}
-
 // variables globales
 let palabras = [];
 let tablero = document.getElementById("horca").getContext("2d");
 let palabraSecreta = '';
 var tecla = '';
 var letraExiste = false;
-let txtI = ['', '', '', '', '', '', '', '', '', ''];
+let txtI = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
 let txtX = "";
 const maxPalabra = 8;
-var posX = [, , , , , , , , ,];
+var posX = [, , , , , , , , , , , , , , ,];
 let ce = 0;   // contador de errores
+var control = false;
 
+// ----------- carga palabras de la API relacionadas con el texto escrito en 'inputTxt'  --------------
 $('#btnAjax')[0].addEventListener('click', e => {
-  //let inputValue = $('#inputImg').val();
-  $.get(`https://api.wordassociations.net/associations/v1.0/json/search?apikey=3a159612-66b3-4a19-97ad-88c1f0781e75&text=animal&lang=es`, response => {
-  for(let i=0;i<50;i++) {
-    palabras[i] = response.response[0].items[i].item.toUpperCase();
-    console.log("====>",palabras[i]);
+  let expresion = /[\u0300-\u036f]/g;
+  let tema = $('#inputtxt').val();
+  console.log("===>>>", tema);
+  $.get(`https://api.wordassociations.net/associations/v1.0/json/search?apikey=3a159612-66b3-4a19-97ad-88c1f0781e75&text=${tema}&lang=es`, response => {
+    for (let i = 0, j = 0; i < 50; i++) {
+      let palabra = response.response[0].items[i].item.toUpperCase();
+      palabras[i] = palabra.normalize("NFD").replace(expresion, "");    //NFD = Forma de Normalización de Descomposición Canónica.
+      console.log("==========>", palabras[i])
     }
+    alert('PALABRAS CARGADAS DE LA API, PUEDE CONTINUAR');
   });
 });
 
 //  ------leer el teclado-----
 
 function leerTecla(event) {
-  tecla = String.fromCharCode(event.which);
-  if (tecla.match(/[a-zA-Z\u00D1\u00F1]/g)) {
-    getLetter(tecla.toUpperCase());
+  if (control) {
+    tecla = String.fromCharCode(event.which);
+    if (tecla.match(/[a-zA-Z\s]+$/i)) {
+      getLetter(tecla.toUpperCase());
+    }
   }
 }
 
@@ -70,15 +74,15 @@ function getLetter(valorTecla) {
       txtI[i] += txtIprevio[i];
     //console.log('====>',idxPos,txtIprevio);
     var txtOk;
-    for (let j=0;j<idxPos.length;j++) {
-      txtOk = document.getElementById("letraI"+`${idxPos[j]}`);
+    for (let j = 0; j < idxPos.length; j++) {
+      txtOk = document.getElementById("letraI" + `${idxPos[j]}`);
       txtOk.style.position = 'absolute';
       txtOk.style.font = 'italic bold 60px arial';
       txtOk.style.color = '#00ff00';
       txtOk.style.marginTop = '560px';
-      txtOk.style.marginLeft = (valorTecla==="I")?`${posX[idxPos[j]]+10}px`:`${posX[idxPos[j]]}px`;
-      document.getElementById('letraI'+`${idxPos[j]}`).innerHTML = valorTecla;
-  }
+      txtOk.style.marginLeft = (valorTecla === "I") ? `${posX[idxPos[j]] + 13}px` : `${posX[idxPos[j]]}px`;
+      document.getElementById('letraI' + `${idxPos[j]}`).innerHTML = valorTecla;
+    }
     //document.getElementById('letraI').innerHTML = txtI.join('');
   }
   else {
@@ -89,16 +93,12 @@ function getLetter(valorTecla) {
     txtErrados.style.color = '#ff0000';
     txtErrados.style.marginTop = '680px';
     txtErrados.style.marginLeft = '770px';
-    txtX += valorTecla+" ";  // valorTecla errado
+    txtX += valorTecla + " ";  // valorTecla errado
     document.getElementById('letraX').innerHTML = txtX;
   }
-  let element = txtI;
-  let elementX = txtX;
-  //document.getElementById('letraI').innerHTML = element.join('');
-  //document.getElementById('letraX').innerHTML = elementX;
-  if (txtI.join('') === palabraSecreta) console.log('Ganastes');
-  //if (txtI.join('') === palabraSecreta) alert("Ganastes");
-}
+  if (txtI.join('') === palabraSecreta) mensaje(true);
+
+} //getLetter()
 
 //PalabraSecreta
 function escojerPalabraSecreta() {
@@ -109,13 +109,15 @@ function escojerPalabraSecreta() {
 
 //Iniciar juego
 function iniciarJuego() {
+  document.getElementById("inputtxt").style.display = "none";   // oculta  inputTxt
+  document.getElementById("btnAjax").style.display = "none";   // oculta  btnAjax
   document.getElementById("iniciar-juego").style.display = "none";       // 'none' = oculta ID
-  document.getElementById("agregar-palabra").style.display = "none";     // 
-  document.getElementById("aviso").style.display = "block";            // 'block' = visualiza ID
+  document.getElementById("msgbox").style.display = "none";     // oculta msgbox
+  document.getElementById("btn-repetir").style.display = "none";     // oculta btn-repetir
+  control = true;
   escojerPalabraSecreta()
   dibujarCanvas()
   dibujarLineaLetras()
-
 }
 
 // ------------------------------ canvas ------------------------
@@ -146,20 +148,20 @@ function dibujarLineaHorca(err) {
   tablero.strokeStyle = "#00FF00";
   tablero.beginPath();
   switch (err) {
-    case 1: drawline(700, 500, 700, 100);  break;   // asta 1
-    case 2: drawline(700, 100, 820, 100);  break;   // asta 2
-    case 3: drawline(820, 100, 820, 140);  break;   // asta 3
+    case 1: drawline(700, 500, 700, 100); break;   // asta 1
+    case 2: drawline(700, 100, 820, 100); break;   // asta 2
+    case 3: drawline(820, 100, 820, 140); break;   // asta 3
     case 4: tablero.arc(820, 170, 30, 0, 2 * Math.PI, false); break;  // cabeza
-    case 5: drawline(820, 200, 820, 300);  break;   // tronco
-    case 6: drawline(820, 205, 780, 230);  break;   // brazo 1
-    case 7: drawline(820, 205, 860, 230);  break;   // brazo 2
-    case 8: drawline(820, 300, 780, 330);  break;   // pierna 1
-    case 9: drawline(820, 300, 860, 330);  break;   // pierna 2
+    case 5: drawline(820, 200, 820, 300); break;   // tronco
+    case 6: drawline(820, 205, 780, 230); break;   // brazo 1
+    case 7: drawline(820, 205, 860, 230); break;   // brazo 2
+    case 8: drawline(820, 300, 780, 330); break;   // pierna 1
+    case 9: drawline(820, 300, 860, 330); mensaje(false); break;   // pierna 2
   } // switch()
   tablero.stroke();
   tablero.closePath();
 }
-  
+
 function dibujarLineaLetras() {
   tablero.lineWidth = 6;
   tablero.lineCap = "round";
@@ -174,4 +176,17 @@ function dibujarLineaLetras() {
   }
   tablero.stroke();
   tablero.closePath();
+}
+
+function mensaje(success) {
+  document.getElementById("msgbox").style.display = "block";
+  control = false;
+  if (success) {
+    console.log(">>>>>>>>>>>>>GANASTES");
+    document.getElementById('msgbox').innerHTML = 'Ganastes';
+  } else {
+    console.log(">>>>>>>>>>>>>PERDISTES");
+    document.getElementById('msgbox').innerHTML = `Perdistes palabra secreta ${palabraSecreta}`;
+  }
+  document.getElementById("btn-repetir").style.display = "block";     // oculta btn-repetir
 }

@@ -9,16 +9,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body onload="funload()" onkeypress="leerTecla(event)">
+<body id="inicio" onkeypress="leerTecla(event)">
     <img src="./images/landingpage/logo.svg" class="logo">
     <div class="botones-home">
+      <input class="input-txt" type="text" id="inputtxt" />
       <a href="#horca">
+        <button class="btn-cargar" id='btnAjax'>Cargar palabras aleatorias de la RED</button>
         <input class="btn-iniciar" type="submit" value="Iniciar Juego" id="iniciar-juego" onclick="iniciarJuego()">
-        <input class="btn-agregar" type="submit" value="Agregar Palabra" id="agregar-palabra" onclick="agregarPalabra()">
-        <button id='btnAjax'>Cargar palabras aleatorias de la RED</button>
       </a>
     </div>
-    <div class='letraVisible' >
+    <div class='letraVisible'>
       <div class='letraI' id='letraI0'></div>
       <div class='letraI' id='letraI1'></div>
       <div class='letraI' id='letraI2'></div>
@@ -29,19 +29,23 @@
       <div class='letraI' id='letraI7'></div>
       <div class='letraI' id='letraI8'></div>
       <div class='letraI' id='letraI9'></div>
+      <div class='letraI' id='letraI10'></div>
+      <div class='letraI' id='letraI11'></div>
+      <div class='letraI' id='letraI12'></div>
+      <div class='letraI' id='letraI13'></div>
+      <div class='letraI' id='letraI14'></div>
+      <div class='letraI' id='letraI15'></div>
       <div class='letraX' id='letraX'></div>
     </div>    
     <div id="div-aparece-ahorcado" class="canvas">
       <!-- Canvas -->
       <canvas id="horca" width="1366" height="768"></canvas>
-      <div class="subrayado">
-      </div>
+      <div class="subrayado"></div>
     </div>
-    <p id="demo">AQUIIIIIIIIIIIIII</p>
-
-    <img src="./images/landingpage/avisoMaxLetras.svg" class="aviso" id="aviso">
-
-    <!-- <a href="#" class="copiar" onclick="copiaTexto()" data-clipboard-target="#resultado">Copiar</a> -->
+    <div>
+      <p class="msg-box" id="msgbox"></p>
+      <input class="btn-repetir" type="submit" value="Repetir Juego" id="repetir-juego" onclick="iniciarJuego()">
+    </div>
     </main>
     <script src="script.js"></script>
 </body>
