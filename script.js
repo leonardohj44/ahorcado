@@ -12,11 +12,12 @@ const maxPalabra = 8;
 var posX = [, , , , , , , , , , , , , , ,];
 let ce = 0;   // contador de errores
 var control = false;
+var tema = "";
 
 // ----------- carga palabras de la API relacionadas con el texto escrito en 'inputTxt'  --------------
 $('#btnAjax')[0].addEventListener('click', e => {
   let expresion = /[\u0300-\u036f]/g;
-  let tema = $('#inputtxt').val();
+  tema = $('#inputtxt').val();
   let existePalabra, i=0;
   console.log("===>>>", tema);
   try{
@@ -58,7 +59,6 @@ function buscarPos(texto, buscar) {
   let pos = [];
   var textoImp = texto.split('').fill('', 0, texto.length);
   var txt = "";
-  //console.log(textoImp)
   let c = 0;
   for (let i = 0; i < texto.length; i++) {
     if (texto.slice(i, buscar.length + i) === buscar) pos[c++] = i;
@@ -71,21 +71,15 @@ function buscarPos(texto, buscar) {
 }
 
 function getLetter(valorTecla) {
-  //let idxPos = [];    // indice de la posicion de la valorTecla encontrado en palabraSecreta
   let txtIprevio = [];
   let temp = [];
   let s = [];
   let f = palabraSecreta.split('').filter(x => x == valorTecla); // cantidad de valorTecla repetidos
   [s, temp] = buscarPos(txtI + '', valorTecla);
-  //console.log(txtI);
-  if (s.length !== 0) {
-    console.log('letra ya existe');
-    return null;
-  }
+  if (s.length !== 0) return null;
   txtIprevio = txtI;
   if (f.length > 0) {  // valorTecla correcto
     [idxPos, txtIprevio] = buscarPos(palabraSecreta, valorTecla);
-    //txtIprevio = buscarPos(palabraSecreta, valorTecla);
 
     for (let i = 0; i < palabraSecreta.length; i++)
       txtI[i] += txtIprevio[i];
@@ -130,8 +124,10 @@ function iniciarJuego() {
   document.getElementById("msgbox").style.display = "none";     // oculta msgbox
   document.getElementById("label").style.display = "none";     // oculta label
   document.getElementById("labellisto").style.display = "none";     // oculta label listo
-  document.getElementById("repetir-juego").style.display = "block";     // oculta btn-repetir
-  document.getElementById("salir-juego").style.display = "block";     // oculta btn-repetir
+  document.getElementById("repetir-juego").style.display = "block";
+  document.getElementById("salir-juego").style.display = "block";
+  document.getElementById("lbltema").style.display = "block";
+  document.getElementById("lbltema").innerHTML = `Palabra relacionada con: ${tema}`.toUpperCase();
   control = true;
   txtX = [];
   document.getElementById('letraX').innerHTML = txtX;
@@ -174,13 +170,13 @@ function drawline(xi, yi, xf, yf) {
 }
 
 function dibujarLineaHorca(err) {
-  tablero.lineWidth = 8;
+  tablero.lineWidth = 12;
   tablero.lineCap = "round";
   tablero.lineJoin = "round";
   tablero.strokeStyle = "#00FF00";
   tablero.beginPath();
   switch (err) {
-    case 1: drawline(700, 500, 700, 100); break;   // asta 1
+    case 1: drawline(700, 490, 700, 100); break;   // asta 1
     case 2: drawline(700, 100, 820, 100); break;   // asta 2
     case 3: drawline(820, 100, 820, 140); break;   // asta 3
     case 4: tablero.arc(820, 170, 30, 0, 2 * Math.PI, false); break;  // cabeza
@@ -215,10 +211,10 @@ function mensaje(success) {
   control = false;
   if (success) {
     console.log(">>>>>>>>>>>>>GANASTES");
-    document.getElementById('msgbox').innerHTML = 'Ganastes';
+    document.getElementById('msgbox').innerHTML = 'G A N A S T E S';
   } else {
     console.log(">>>>>>>>>>>>>PERDISTES");
-    document.getElementById('msgbox').innerHTML = `Perdistes palabra secreta ${palabraSecreta}`;
+    document.getElementById('msgbox').innerHTML = `Perdistes. <br> Palabra secreta: ${palabraSecreta}`;
   }
   document.getElementById("repetir-juego").style.display = "block";     // oculta btn-repetir
 }

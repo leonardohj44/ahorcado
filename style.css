@@ -167,13 +167,11 @@ body {
     padding: 0px;
     gap: 8px;
     position: absolute;
-    width: 115px;
+    font-size: 40px;
+    width: 400px;
     height: 18px;
     left: 950px;
-    top: 380px;
-    animation-name: parpadeo;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
+    top: 340px;
 }
 
 .lbl {
@@ -203,4 +201,19 @@ body {
     height: 50px;
     left: 30px;
     top: 428px; 
+}
+
+.lbl-tema {
+    color: yellow;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 8px;
+    position: absolute;
+    font-size: 40px;
+    width: 850px;
+    height: 50px;
+    left: 400px;
+    top: 20px;   
 }
