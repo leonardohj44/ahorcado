@@ -30,7 +30,7 @@ $('#btnAjax')[0].addEventListener('click', e => {
         } // if
         else {
           if(i==0) {
-            alert("Palabra no encontrada en la API, ingrese otra")
+            alert("Palabra no encontrada en la API, ingrese otra palabra.")
             window.location.reload();
           }
           break;
@@ -89,10 +89,8 @@ function getLetter(valorTecla) {
 
     for (let i = 0; i < palabraSecreta.length; i++)
       txtI[i] += txtIprevio[i];
-    console.log('====>', idxPos, txtIprevio);
     var txtOk;
     for (let j = 0; j < idxPos.length; j++) {
-      console.log("idxPos[j]=", idxPos[j])
       txtOk = document.getElementById("letraI" + `${idxPos[j]}`);
       txtOk.style.position = 'absolute';
       txtOk.style.font = 'italic bold 60px arial';
@@ -202,7 +200,7 @@ function dibujarLineaLetras() {
   tablero.lineJoin = "round";
   tablero.fillStyle = "#FF0000";
   tablero.strokeStyle = "#0A3871";
-  let anchura = 600 / palabraSecreta.length;
+  let anchura = 800 / palabraSecreta.length;
   for (let i = 0; i < palabraSecreta.length; i++) {
     tablero.moveTo(500 + (anchura * i), 640)
     tablero.lineTo(550 + (anchura * i), 640)
